@@ -1,0 +1,23 @@
+AUTOSAR HLD - Brake Control (SAMPLE, SYNTHETIC DATA)
+Document ID: HLD-BRK-001   Version 1.2
+
+1 Introduction
+This sample describes the brake pressure function of a fictional ECU.
+
+2 Software Components
+2.1 BrakeCtrl_Swc
+BrakeCtrl_Swc computes the target brake pressure. It requires the WheelSpeed_Swc component for slip information.
+It provides BrakePressureSenderReceiverInterface on the port BrakePressure_PPort.
+The component writes the signal Sig_BrakePressureTarget every 10 ms.
+
+2.2 WheelSpeed_Swc
+WheelSpeed_Swc reads the raw wheel sensor values and provides WheelSpeedInterface on WheelSpeed_PPort.
+It uses Rte_Read_WheelSpeedData to publish the speed values.
+
+3 Interfaces
+BrakePressureSenderReceiverInterface carries the signal Sig_BrakePressureTarget.
+WheelSpeedInterface carries the signal Sig_WheelSpeedFL.
+
+4 Functional Flow
+The ABS function depends on BrakeCtrl_Swc and WheelSpeed_Swc.
+A call to Rte_Call_ActuatorService_Apply triggers the actuator request.
